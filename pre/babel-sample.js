@@ -6,7 +6,7 @@ const plugin = ({types: t}) => ({
   visitor: {
     BinaryExpression: (nodePath) => {
       if (nodePath.node.operator !== '*') {
-        const newAst = t.binaryExpression('*', nodePath.node.left, nodePath.node.right)
+        const newAst = t.binaryExpression('*', nodePath.node.right, nodePath.node.left)
         nodePath.replaceWith(newAst)
       }
     }
