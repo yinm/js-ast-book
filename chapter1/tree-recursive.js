@@ -1,4 +1,4 @@
-// 2nd
+// 3rd
 const obj = {
   hoge: {
     fuga: [1, 2, 3]
