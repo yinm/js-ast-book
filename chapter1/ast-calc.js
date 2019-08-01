@@ -1,4 +1,5 @@
-const {parse} = require('babylon')
+// 2nd
+const { parse } = require('babylon')
 
 const code = process.argv.slice(2).join(' ')
 
@@ -43,17 +44,14 @@ const traverser = (node, exitVisitor, indent = 0) => {
     }
   })
 
-  console.log(`${' '.repeat(indent)}exit:  ${node.type} '${getCode(node)}'`)
+  console.log(`${' '.repeat(indent)}exit: ${node.type} '${getCode(node)}'`)
   return exitVisitor[node.type](node, res, indent)
 }
 
 const exitVisitor = {
   File: (node, res) => res.program,
   Program: (node, res) => res.body,
-  ExpressionStatement: (node, res) => {
-    const expr = node.expression
-    return `${getCode(node)} = ${res.expression}`
-  },
+  ExpressionStatement: (node, res) =>  `${getCode(node)} = ${res.expression}`,
   BinaryExpression: (node, res, indent) => {
     console.log(`${' '.repeat(indent)} ${res.left} ${node.operator} ${res.right}`)
     const {left, right} = res
@@ -63,11 +61,11 @@ const exitVisitor = {
       case '-': return left - right
       case '/': return left / right
       case '%': return left % right
-      default: throw new Error('対応してない二項演算子')
+      default: throw new Error('対応していない二項演算子')
     }
   },
   NumericLiteral: (node, res, indent) => {
-    console.log(`${' '.repeat(indent)}  value: ${node.value}`)
+    console.log(`${' '.repeat(indent)} value: ${node.value}`)
     return node.value
   }
 }
